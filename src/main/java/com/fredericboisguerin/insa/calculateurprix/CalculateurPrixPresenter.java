@@ -8,6 +8,6 @@ public class CalculateurPrixPresenter {
     }
 
     public void onComputeButtonClicked(String montantArticleAsText) {
-        calculateurPrixView.afficherErreur("Allez, au boulot ! :)");
+        calculateurPrixView.setMontantHTTextField(Double.parseDouble(montantArticleAsText));
     }
 }
