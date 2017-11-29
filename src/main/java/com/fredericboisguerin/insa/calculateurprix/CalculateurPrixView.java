@@ -17,6 +17,7 @@ public class CalculateurPrixView extends JFrame {
     private JTextField prixArticleTextField;
     private JTextField quantiteTextField;
     private JFormattedTextField montantHTTextField;
+    private JFormattedTextField montantTTCTextField;
 
     public CalculateurPrixView() throws HeadlessException {
         super("Calculateur de prix");
@@ -38,8 +39,14 @@ public class CalculateurPrixView extends JFrame {
         montantHTTextField.setEditable(false);
         montantHTLabel.setLabelFor(montantHTTextField);
 
+        JLabel montantTTCLabel = new JLabel("Montant TTC : ");
+        montantTTCTextField = new JFormattedTextField(NumberFormat.getCurrencyInstance());
+        montantTTCTextField.setValue(18);
+        montantTTCTextField.setEditable(false);
+        montantHTLabel.setLabelFor(montantTTCTextField);
+
         JButton computeButton = new JButton("Calculer");
-        computeButton.addActionListener(e -> this.presenter.onComputeButtonClicked(this.CalculMontantArticle()));
+        computeButton.addActionListener(e -> this.presenter.onComputeButtonClicked(this.prixArticleTextField.getText(),this.quantiteTextField.getText());
 
 
         JPanel contentPane = new JPanel();
@@ -50,11 +57,13 @@ public class CalculateurPrixView extends JFrame {
         labelPane.add(prixArticleLabel);
         labelPane.add(quantiteLabel);
         labelPane.add(montantHTLabel);
+        labelPane.add(montantTTCLabel);
 
         JPanel fieldPane = new JPanel(new GridLayout(0, 1));
         fieldPane.add(prixArticleTextField);
         fieldPane.add(quantiteTextField);
         fieldPane.add(montantHTTextField);
+        fieldPane.add(montantTTCTextField);
 
         contentPane.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         add(labelPane, WEST);
@@ -74,11 +83,15 @@ public class CalculateurPrixView extends JFrame {
         this.montantHTTextField.setValue(n);
     }
 
-    private String CalculMontantArticle(){
-        Double prixarticle = Double.parseDouble(this.prixArticleTextField.getText());
-        Double quantite = Double.parseDouble(this.quantiteTextField.getText());
-        return String.valueOf(prixarticle*quantite);
+    public void setMontantTTCTextField(Double n){
+        this.montantTTCTextField.setValue(n);
     }
+
+    public String getprixArticle(){
+        return this.prixArticleTextField.getText();
+    }
+
+    public String get
 
     public void display() {
         this.pack();
