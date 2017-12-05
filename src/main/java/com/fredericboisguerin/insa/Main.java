@@ -7,5 +7,4 @@ public class Main {
         CalculateurPrixView frame = new CalculateurPrixView();
         frame.display();
     }
-
 }
