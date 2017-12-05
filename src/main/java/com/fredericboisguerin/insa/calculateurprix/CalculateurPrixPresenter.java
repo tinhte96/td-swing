@@ -8,21 +8,24 @@ public class CalculateurPrixPresenter {
     }
 
     public void onComputeButtonClicked(String montantArticle, String quantite) {
-        calculateurPrixView.setMontantHTTextField(Double.parseDouble(montantArticleAsText));
-        calculateurPrixView.setMontantTTCTextField(Double.parseDouble(montantArticleAsText)*1.2);
+        try {
+            calculateurPrixView.setMontantHTTextField(Double.parseDouble(CalculMontantHT(montantArticle, quantite)));
+            calculateurPrixView.setMontantTTCTextField(Double.parseDouble(CalculMontantTTC(montantArticle, quantite)));
+        } catch (Exception e) {
+            calculateurPrixView.afficherErreur("Entrer un nombre pour prix et un nombre entier pour quantité svp : ");
+        }
     }
 
-    private String CalculMontantHT(){
-        Double prixarticle = Double.parseDouble(calculateurPrixView.getPrixArticleTextField());
-        Double quantite = Double.parseDouble(calculateurPrixView.getQuantiteTextField());
-        return String.valueOf(prixarticle*quantite);
+    private String CalculMontantHT(String prixArticleText, String quantiteText){
+        Double prixArticle = Double.parseDouble(prixArticleText);
+        int quantite = Integer.parseInt(quantiteText);
+        return String.valueOf(prixArticle*quantite);
     }
 
-    private String CalculMontantTTC(){
-        Double prixarticle = Double.parseDouble(this.prixArticleTextField.getText());
-        Double quantite = Double.parseDouble(this.quantiteTextField.getText());
-        return String.valueOf(prixarticle*quantite);
+    private String CalculMontantTTC(String prixArticleText, String quantiteText) {
+        Double tax = calculateurPrixView.getPaysComboboxText().getTax();
+        Double prixArticle = Double.parseDouble(prixArticleText);
+        int quantite = Integer.parseInt(quantiteText);
+        return String.valueOf(prixArticle * quantite * tax);
     }
-
-
 }
