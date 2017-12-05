@@ -18,6 +18,7 @@ public class CalculateurPrixView extends JFrame {
     private JTextField quantiteTextField;
     private JFormattedTextField montantHTTextField;
     private JFormattedTextField montantTTCTextField;
+    private JComboBox<Pays> paysCombobox;
 
     public CalculateurPrixView() throws HeadlessException {
         super("Calculateur de prix");
@@ -33,6 +34,11 @@ public class CalculateurPrixView extends JFrame {
         quantiteLabel.setLabelFor(quantiteTextField);
         quantiteTextField.setToolTipText("le nombre d'articles");
 
+        JLabel paysLabel = new JLabel("Pays : ");
+        paysCombobox = new JComboBox<Pays>(Pays.values());
+        paysLabel.setLabelFor(paysCombobox);
+        paysCombobox.setToolTipText("Tax : ");
+
         JLabel montantHTLabel = new JLabel("Montant HT : ");
         montantHTTextField = new JFormattedTextField(NumberFormat.getCurrencyInstance());
         montantHTTextField.setValue(15);
@@ -46,7 +52,7 @@ public class CalculateurPrixView extends JFrame {
         montantHTLabel.setLabelFor(montantTTCTextField);
 
         JButton computeButton = new JButton("Calculer");
-        computeButton.addActionListener(e -> this.presenter.onComputeButtonClicked(this.prixArticleTextField.getText(),this.quantiteTextField.getText());
+        computeButton.addActionListener(e -> this.presenter.onComputeButtonClicked(this.prixArticleTextField.getText(), this.quantiteTextField.getText()));
 
 
         JPanel contentPane = new JPanel();
@@ -56,12 +62,14 @@ public class CalculateurPrixView extends JFrame {
         JPanel labelPane = new JPanel(new GridLayout(0, 1));
         labelPane.add(prixArticleLabel);
         labelPane.add(quantiteLabel);
+        labelPane.add(paysLabel);
         labelPane.add(montantHTLabel);
         labelPane.add(montantTTCLabel);
 
         JPanel fieldPane = new JPanel(new GridLayout(0, 1));
         fieldPane.add(prixArticleTextField);
         fieldPane.add(quantiteTextField);
+        fieldPane.add(paysCombobox);
         fieldPane.add(montantHTTextField);
         fieldPane.add(montantTTCTextField);
 
@@ -87,11 +95,7 @@ public class CalculateurPrixView extends JFrame {
         this.montantTTCTextField.setValue(n);
     }
 
-    public String getprixArticle(){
-        return this.prixArticleTextField.getText();
-    }
-
-    public String get
+    public Pays getPaysComboboxText() {return (Pays)this.paysCombobox.getSelectedItem();}
 
     public void display() {
         this.pack();
